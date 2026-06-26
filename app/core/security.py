@@ -1,6 +1,6 @@
 from datetime import datetime, timezone, timedelta
 from jose import jwt, JWTError
-from app.core.config import Settings
+from app.core.config import settings
 
 
 def createToken(data : dict, expire_in_minutes=30):
@@ -10,16 +10,16 @@ def createToken(data : dict, expire_in_minutes=30):
 
     return jwt.encode(
         copy_of_data,
-        key = Settings.JWT_SECRET_KEY,
-        algorithm = Settings.JWT_ALGO
+        key = settings.JWT_SECRET_KEY,
+        algorithm = settings.JWT_ALGO
     )
 
 def tokenVerification(token : str):
     try:
         payload = jwt.decode(
             token,
-            key = Settings.JWT_SECRET_KEY,
-            algorithms = [Settings.JWT_ALGO]
+            key = settings.JWT_SECRET_KEY,
+            algorithms = [settings.JWT_ALGO]
         )
         return payload
     except JWTError:

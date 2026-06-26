@@ -22,4 +22,4 @@ class Setting:
     )
     MODEL_LOCATION = "app\\models\\model.pkl"
 
-Settings = Setting()
+settings = Setting()
