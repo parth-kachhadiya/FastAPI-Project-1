@@ -1,0 +1,18 @@
+{
+  "n_estimators": 379,
+  "max_depth": 7,
+  "learning_rate": 0.08346441198913658,
+  "subsample": 0.7435506054825762,
+  "colsample_bytree": 0.948751906518353,
+  "colsample_bylevel": 0.9501603886095981,
+  "min_child_weight": 19,
+  "gamma": 0.01841070780960037,
+  "reg_alpha": 2.157966568700442e-08,
+  "reg_lambda": 0.011498450677856022,
+  "grow_policy": "lossguide",
+  "random_state": 42,
+  "objective": "reg:squarederror",
+  "eval_metric": "rmse",
+  "early_stopping_rounds": 50,
+  "n_jobs": -1
+}

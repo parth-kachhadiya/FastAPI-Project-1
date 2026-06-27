@@ -20,6 +20,7 @@ class Setting:
         'REDIS_URL',
         'redis://localhost:6379'
     )
-    MODEL_LOCATION = "app\\models\\model.pkl"
+    MODEL_LOCATION = "app\\models\\xgb_model.pkl"
+    PREPROCESSOR_LOCATION = "app\\models\\preprocessor.pkl"
 
 settings = Setting()
