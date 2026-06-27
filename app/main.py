@@ -10,8 +10,8 @@ app = FastAPI(title = "Car Price Prediction API")
 app.add_middleware(LoggingMiddleware)
 
 # Route link
-app.include_router(route_auth.router, tags='Auth Route')
-app.include_router(route_predict.router, tags='Prediction Route')
+app.include_router(route_auth.router, tags=['Auth Route'])
+app.include_router(route_predict.router, tags=['Prediction Route'])
 
 # Monitoring using prometheus 
 Instrumentator().instrument(app).expose(app)

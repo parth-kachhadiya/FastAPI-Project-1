@@ -3,10 +3,16 @@ from jose import jwt, JWTError
 from app.core.config import settings
 
 
-def createToken(data : dict, expire_in_minutes=30):
-    copy_of_data = data.copy()
+def createToken(data, expire_in_minutes=30):
+    if hasattr(data, "model_dump"):
+        copy_of_data = data.model_dump()
+    elif hasattr(data, "dict"):
+        copy_of_data = data.dict()
+    else:
+        copy_of_data = dict(data)
+        
     expire_in = datetime.now(timezone.utc) + timedelta(minutes=expire_in_minutes)
-    copy_of_data.update({'expiry' : expire_in })
+    copy_of_data.update({'exp' : expire_in })
 
     return jwt.encode(
         copy_of_data,

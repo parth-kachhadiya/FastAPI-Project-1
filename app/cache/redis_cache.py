@@ -12,5 +12,5 @@ def getCachedPrediction(key : str):
     return None
 
 def setCache(key : str, value : dict, expiry_in_minute : int = 10):
-    redis_client.setex(key, json.dumps(value))
+    redis_client.setex(key, expiry_in_minute * 60, json.dumps(value))
     
