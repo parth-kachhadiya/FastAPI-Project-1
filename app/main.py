@@ -1,13 +1,15 @@
 
 """
-FastAPI endpoint : http://localhost:8000/
+FastAPI endpoint   : http://localhost:8000/
 
-FastAPI metrics  : http://localhost:8000/metrics
+FastAPI metrics    : http://localhost:8000/metrics
 
-Prometheus UI    : http://localhost:9090/
+Streamlit frontend : http://localhost:8501
+
+Prometheus UI      : http://localhost:9090/
     Run query : http_requests_total
 
-Grafana          : http://localhost:3000
+Grafana            : http://localhost:3000
     Username : admin
     Password : admin
 """
