@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: fastapi-car-price-api
+    env: docker
+    plan: free
+    branch: main
+    autoDeploy: true
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: API_KEY
+        value: admin
+      - key: JWT_SECRET_KEY
+        value: jwt_B7CH0ZP9Iypm99T5KSxwu6626i8k3pIE
+      - key: MODEL_LOCATION
+        value: app/models/xgb_model.pkl
+      - key: PREPROCESSOR_LOCATION
+        value: app/models/preprocessor.pkl
+      - key: REDIS_URL
+        fromService:
+          name: car-price-redis
+          type: redis
+          property: connectionString
+
+  - type: web
+    name: car-price-ui
+    env: docker
+    plan: free
+    branch: main
+    autoDeploy: true
+    dockerfilePath: ./Dockerfile.ui
+    envVars:
+      - key: API_BASE_URL
+        fromService:
+          name: fastapi-car-price-api
+          type: web
+          property: hostport
+      - key: API_KEY
+        value: admin
+
+  - type: redis
+    name: car-price-redis
+    plan: free
+    ipAllowList: []
