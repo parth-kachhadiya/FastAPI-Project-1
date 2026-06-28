@@ -1,18 +1,35 @@
-version: '3.9'
-
 services:
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: car-price-predictor
     ports:
       - "8000:8000"
     environment:
       - API_KEY=admin
       - JWT_SECRET_KEY=jwt_B7CH0ZP9Iypm99T5KSxwu6626i8k3pIE
-      - REDIS_URL=redis://localhost:6379
+      - REDIS_URL=redis://redis:6379
     depends_on:
-      - redis
-      - prometheus
+      redis:
+        condition: service_healthy
+      prometheus:
+        condition: service_started
+    networks:
+      - backend
+
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.ui
+    container_name: car-price-ui
+    ports:
+      - "8501:8501"
+    environment:
+      - API_BASE_URL=http://api:8000    # ← talks to api service internally
+      - API_KEY=admin
+    depends_on:
+      - api
     networks:
       - backend
 
@@ -23,6 +40,11 @@ services:
       - "6379:6379"
     networks:
       - backend
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   prometheus:
     image: prom/prometheus:latest
@@ -47,4 +69,3 @@ services:
 networks:
   backend:
     driver: bridge
-    
