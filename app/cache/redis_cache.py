@@ -1,4 +1,5 @@
 import os
+import redis
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -6,18 +7,16 @@ load_dotenv()
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 
 try:
-    import redis
-    # SSL needed for Redis Cloud
     if REDIS_URL.startswith("rediss://"):
         redis_client = redis.StrictRedis.from_url(
             REDIS_URL,
             decode_responses=True,
-            ssl_cert_reqs=None   # ✅ skip SSL cert verification
+            ssl_cert_reqs=None    # only for SSL
         )
     else:
         redis_client = redis.StrictRedis.from_url(
             REDIS_URL,
-            decode_responses=True
+            decode_responses=True  # plain connection, no SSL
         )
     redis_client.ping()
     REDIS_AVAILABLE = True
