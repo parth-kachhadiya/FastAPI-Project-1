@@ -13,6 +13,7 @@ def predictPrice(data : dict):
     cachedResult = getCachedPrediction(cache_key)
 
     if cachedResult:
+        print("[REDIS] : Returned from cache..")
         return cachedResult
 
     framed_input = pd.DataFrame([data])
