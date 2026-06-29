@@ -7,17 +7,25 @@ REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 
 try:
     import redis
-    redis_client = redis.StrictRedis.from_url(
-        REDIS_URL,
-        decode_responses=True,
-        username=None,    # ✅ no auth for local
-        password=None     # ✅ no auth for local
-    )
+    # SSL needed for Redis Cloud
+    if REDIS_URL.startswith("rediss://"):
+        redis_client = redis.StrictRedis.from_url(
+            REDIS_URL,
+            decode_responses=True,
+            ssl_cert_reqs=None   # ✅ skip SSL cert verification
+        )
+    else:
+        redis_client = redis.StrictRedis.from_url(
+            REDIS_URL,
+            decode_responses=True
+        )
     redis_client.ping()
     REDIS_AVAILABLE = True
-except Exception:
+    print("[REDIS] Connected successfully!")
+except Exception as e:
     redis_client = None
     REDIS_AVAILABLE = False
+    print(f"[REDIS] Unavailable: {e}")
 
 def getCachedPrediction(key: str):
     if not REDIS_AVAILABLE:
