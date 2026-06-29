@@ -64,22 +64,23 @@ Capstone-Project/
 
 ## ⚙️ Tech Stack
 
-| Layer | Technology |
-|---|---|
-| API Framework | FastAPI |
-| ML Model | XGBoost |
-| Authentication | JWT + API Key |
-| Caching | Redis |
-| Monitoring | Prometheus + Grafana |
-| Frontend | Streamlit |
+| Layer            | Technology              |
+| ---------------- | ----------------------- |
+| API Framework    | FastAPI                 |
+| ML Model         | XGBoost                 |
+| Authentication   | JWT + API Key           |
+| Caching          | Redis                   |
+| Monitoring       | Prometheus + Grafana    |
+| Frontend         | Streamlit               |
 | Containerization | Docker + Docker Compose |
-| Deployment | Render |
+| Deployment       | Render                  |
 
 ---
 
 ## 🚀 Run Locally with Docker
 
 ### Prerequisites
+
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
 - Git
 
@@ -96,12 +97,12 @@ docker-compose up --build
 # 3. Access the services
 ```
 
-| Service | URL |
-|---|---|
+| Service            | URL                        |
+| ------------------ | -------------------------- |
 | API Docs (Swagger) | http://localhost:8000/docs |
-| Streamlit UI | http://localhost:8501 |
-| Prometheus | http://localhost:9090 |
-| Grafana | http://localhost:3000 |
+| Streamlit UI       | http://localhost:8501      |
+| Prometheus         | http://localhost:9090      |
+| Grafana            | http://localhost:3000      |
 
 ---
 
@@ -114,11 +115,13 @@ All prediction requests require authentication. First login to get a JWT token, 
 **POST** `/auth`
 
 Headers:
+
 ```
 api_key: admin
 ```
 
 Body:
+
 ```json
 {
   "username": "admin",
@@ -127,6 +130,7 @@ Body:
 ```
 
 Response:
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
@@ -142,12 +146,14 @@ Response:
 **POST** `/predict`
 
 Headers:
+
 ```
 token: <your_jwt_token>
 api-key: admin
 ```
 
 Request Body:
+
 ```json
 {
   "brand": "Maruti",
@@ -165,6 +171,7 @@ Request Body:
 ```
 
 Response:
+
 ```json
 {
   "predicted_price": "4,85,320.00"
@@ -178,19 +185,25 @@ Response:
 ## 📊 Monitoring
 
 ### Prometheus
+
 Metrics are auto-collected via `prometheus-fastapi-instrumentator` and available at:
+
 ```
 http://localhost:9090
 ```
 
 ### Grafana
+
 Dashboard available at:
+
 ```
 http://localhost:3000
 ```
+
 Default Grafana credentials: `admin / admin`
 
 Add Prometheus as a data source:
+
 - URL: `http://prometheus:9090`
 - Then create panels to visualize request count, latency, and error rates.
 
@@ -211,11 +224,12 @@ This project uses `render.yaml` for Blueprint deployment.
    - Redis instance
 
 ### Live URLs (after deploy)
-| Service | URL |
-|---|---|
-| API | `https://fastapi-car-price-api.onrender.com` |
-| API Docs | `https://fastapi-car-price-api.onrender.com/docs` |
-| UI | `https://car-price-ui.onrender.com` |
+
+| Service  | URL                                                |
+| -------- | -------------------------------------------------- |
+| API      | `https://fastapi-project-1-o2vr.onrender.com`      |
+| API Docs | `https://fastapi-project-1-o2vr.onrender.com/docs` |
+| UI       | `https://car-price-predictor-ui.onrender.com/`     |
 
 > ⚠️ **Free tier note:** Services sleep after 15 minutes of inactivity. First request after sleep may take 30–60 seconds to respond.
 
